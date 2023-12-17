@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Global COVID-19 Statistics</h1>
+<a href="/">Back to Main Page</a>
+    <form action="/show_global_stats" method="get">
+        <label for="country">Select Country:</label>
+        <select name="country" id="country">
+            {% for country in unique_countries %}
+                <option value="{{ country }}" {% if selected_country == country %}selected{% endif %}>{{ country }}</option>
+            {% endfor %}
+        </select>
+        <button class="button button1">Show Stats</button>
+    </form>
+    <p>Showing statistics for: {{ selected_country }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Confirmed Cases</th>
+                <th>Deaths</th>
+                <th>Recovered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in global_stats.iterrows() %}
+            <tr>
+                <td>{{ row['ObservationDate'] }}</td>
+                <td>{{ row['Confirmed'] }}</td>
+                <td>{{ row['Deaths'] }}</td>
+                <td>{{ row['Recovered'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

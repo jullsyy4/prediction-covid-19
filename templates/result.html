@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Result</h1>
+
+    <p>Prediction for {{ selected_country if selected_country != 'all' else 'Worldwide' }}: {{ "{:.2f}".format(prediction) }}</p>
+
+    {% if rmse is defined and mae is defined %}
+        <p>RMSE: {{ rmse }}</p>
+        <p>MAE: {{ mae }}</p>
+    {% endif %}
+
+    <form action="/show_evaluation" method="get">
+        <button class="button button1">Show Evaluation</button>
+    </form>
+
+    {% if forecast_chart is defined %}
+        {{ forecast_chart|safe }}
+    {% endif %}
+</body>
+</html>

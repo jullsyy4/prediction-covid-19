@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>COVID-19 Analysis</h1>
+
+    <form action="{{ url_for('show_forecast') }}" method="get">
+        <label for="country">Select Country:</label>
+        <select name="country" id="country">
+            <option value="all">Worldwide</option>
+            {% for country in unique_countries %}
+                <option value="{{ country }}">{{ country }}</option>
+            {% endfor %}
+        </select>
+        <p><button class="button button1">Show Forecast</button></p>
+    </form>
+
+
+    <form action="/show_global_stats" method="get">
+        <button class="button button1">Show Global Stats</button>
+    </form>
+</body>
+</html>
